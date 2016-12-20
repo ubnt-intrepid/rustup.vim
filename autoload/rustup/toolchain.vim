@@ -11,12 +11,3 @@ endfunction
 function! rustup#toolchain#install(name) abort
   return rustup#util#run('toolchain', ['install', a:name])
 endfunction
-
-function! rustup#toolchain#default() abort
-  let candidates = filter(rustup#toolchain#list(), 'v:val =~# ''(default)$''')
-  if len(candidates) == 0
-    return ''
-  endif
-  return substitute(candidates[0], ' (default)', '', 'g')
-endfunction
-
