@@ -18,17 +18,17 @@ function! rustup#default(toolchain) abort
   return system('rustup default '. a:toolchain)
 endfunction
 
-function! rustup#run(toolchain, command, ...) abort
+function! rustup#run(toolchain, cmd, ...) abort
   if !executable('rustup')
     return ''
   endif
   let args = join(map(deepcopy(a:000), '"\"" . v:val . "\""'), ' ')
-  return system('rustup run ' . a:toolchain . ' ' . a:command . ' ' . args)
+  return system('rustup run ' . a:toolchain . ' ' . a:cmd . ' ' . args)
 endfunction
 
-function! rustup#which(command) abort
+function! rustup#which(cmd) abort
   if !executable('rustup')
     return ''
   endif
-  return system('rustup which ' . a:command)
+  return system('rustup which ' . a:cmd)
 endfunction

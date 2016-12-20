@@ -12,28 +12,24 @@ function! s:list_components(toolchain) abort
   return split(system('rustup component list' . args), '\n')
 endfunction
 
-function! rustup#component#list(...) abort
-  return map(s:list_components(get(a:, 1, '')), 'substitute(v:val, '' (.*)$'', '''', ''g'')')
+function! rustup#component#list(toolchain) abort
+  return map(s:list_components(a:toolchain), 'substitute(v:val, '' (.*)$'', '''', ''g'')')
 endfunction
 
-function! rustup#component#add(component, ...) abort
+function! rustup#component#add(component, target, toolchain) abort
   if !executable('rustup')
     return
   endif
-  let target = get(a:, 1, '')
-  let toolchain = get(a:, 2, '')
-  let args = target ==# '' ? '' : (' --target=' . target)
-  let args = args . (toolchain ==# '' ? '' : (' --toolchain=' . toolchain))
+  let args = a:target ==# '' ? '' : (' --target=' . a:target)
+  let args = args . (a:toolchain ==# '' ? '' : (' --toolchain=' . a:toolchain))
   call system('rustup component add ' . a:component . args)
 endfunction
 
-function! rustup#component#remove(component, ...) abort
+function! rustup#component#remove(component, target, toolchain) abort
   if !executable('rustup')
     return
   endif
-  let target = get(a:, 1, '')
-  let toolchain = get(a:, 2, '')
-  let args = target ==# '' ? '' : (' --target=' . target)
-  let args = args . (toolchain ==# '' ? '' : (' --toolchain=' . toolchain))
+  let args = a:target ==# '' ? '' : (' --target=' . a:target)
+  let args = args . (a:toolchain ==# '' ? '' : (' --toolchain=' . a:toolchain))
   call system('rustup component remove ' . a:component . args)
 endfunction

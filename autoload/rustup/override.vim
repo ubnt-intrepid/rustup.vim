@@ -22,13 +22,11 @@ function! rustup#override#set(toolchain) abort
   call system('rustup override set ' . a:toolchain)
 endfunction
 
-function! rustup#override#unset(...) abort
+function! rustup#override#unset(path, nonexistent) abort
   if !executable('rustup')
     return
   endif
-  let path = get(a:, 1, '')
-  let nonexistent = get(a:, 2, '')
-  let args = path ==# '' ? '' : (' --path ' . path)
-  let args = args . (nonexistent ==# '' ? '' : ' --nonexsistent')
+  let args = a:path ==# '' ? '' : (' --path ' . a:path)
+  let args = args . (a:nonexistent ==# '' ? '' : ' --nonexsistent')
   call system('rustup override unset' . args)
 endfunction
