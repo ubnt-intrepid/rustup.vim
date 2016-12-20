@@ -3,17 +3,36 @@ A thin wrapper for calling [`rustup`](https://github.com/rust-lang-nursery/rustu
 
 ## Current status
 
-* `rustup#target#{list,add,remove,default}()`
+* `rustup#component#list([toolchain])`
+* `rustup#component#add(component[, target, toolchain])`
+* `rustup#component#remove(component[, target, toolchain])`
+* `rustup#override#list()`
+* `rustup#override#set(toolchain)`
+* `rustup#override#unset([path, nonexistent])`
+* `rustup#target#list([toolchain])`
+* `rustup#target#default([toolchain])`
+* `rustup#target#add(target[, toolchain])`
+* `rustup#target#remove(target[, toolchain])`
 * `rustup#toolchain#list()`
+* `rustup#toolchain#install(name)`
 * `rustup#toolchain#default()`
 * `rustup#show()`
+* `rustup#default()`
+* `rustup#run()`
+* `rustup#which()`
 
 ## Installation
 
-### vim-plug
+vim-plug:
 
 ```vim
 Plug 'ubnt-intrepid/rustup.vim'
+```
+
+dein.vim:
+
+```vim
+call dein#add('ubnt-intrepid/rustup.vim')
 ```
 
 ## License
