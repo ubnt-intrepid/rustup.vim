@@ -1,3 +1,9 @@
+"==============================================================================
+" File:    rustup.vim
+" Author:  Yusuke Sasaki <yusuke.sasaki.nuem@gmail.com>
+" License: MIT
+"==============================================================================
+
 let g:rustup#sysroot = ''
 
 function! rustup#update_sysroot() " {{{
@@ -6,9 +12,8 @@ function! rustup#update_sysroot() " {{{
   endif
 endfunction " }}}
 
-function! rustup#toolchain()
-  call rustup#update_sysroot()
-  return split(fnamemodify(g:rustup#sysroot, ':t'), '-')[0]
+function! rustup#show()
+  execute '!rustup show'
 endfunction
 
 function! rustup#source_path()
