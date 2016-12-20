@@ -11,6 +11,13 @@ function! rustup#toolchain#list()
   return split(system('rustup toolchain list'), '\n')
 endfunction
 
+function! rustup#toolchain#install(name)
+  if !executable('rustup')
+    return
+  endif
+  call system('rustup toolchain install ' . a:name)
+endfunction
+
 function! rustup#toolchain#default()
   let candidates = filter(rustup#toolchain#list(), 'v:val =~ "(default)$"')
   if len(candidates) == 0
