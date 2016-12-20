@@ -12,23 +12,13 @@ function! rustup#show() abort
 endfunction
 
 function! rustup#default(toolchain) abort
-  if !executable('rustup')
-    return ''
-  endif
-  return system('rustup default '. a:toolchain)
+  return rustup#util#run('default', [a:toolchain])
 endfunction
 
 function! rustup#run(toolchain, cmd, ...) abort
-  if !executable('rustup')
-    return ''
-  endif
-  let args = join(map(deepcopy(a:000), '"\"" . v:val . "\""'), ' ')
-  return system('rustup run ' . a:toolchain . ' ' . a:cmd . ' ' . args)
+  return rustup#util#run('run', [a:toolchain, a:cmd] + deepcopy(a:000))
 endfunction
 
 function! rustup#which(cmd) abort
-  if !executable('rustup')
-    return ''
-  endif
-  return system('rustup which ' . a:cmd)
+  return rustup#util#run('which', [a:cmd])
 endfunction
