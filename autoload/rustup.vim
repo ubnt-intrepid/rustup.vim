@@ -4,21 +4,21 @@
 " License: MIT
 "==============================================================================
 
-function! rustup#show()
+function! rustup#show() abort
   if !executable('rustup')
     return ''
   endif
   return system('rustup show')
 endfunction
 
-function! rustup#default(toolchain)
+function! rustup#default(toolchain) abort
   if !executable('rustup')
     return ''
   endif
-  return system('rustup default '. toolchain)
+  return system('rustup default '. a:toolchain)
 endfunction
 
-function! rustup#run(toolchain, command, ...)
+function! rustup#run(toolchain, command, ...) abort
   if !executable('rustup')
     return ''
   endif
@@ -26,7 +26,7 @@ function! rustup#run(toolchain, command, ...)
   return system('rustup run ' . a:toolchain . ' ' . a:command . ' ' . args)
 endfunction
 
-function! rustup#which(command)
+function! rustup#which(command) abort
   if !executable('rustup')
     return ''
   endif

@@ -4,7 +4,7 @@
 " License: MIT
 "==============================================================================
 
-function! s:list_components(toolchain)
+function! s:list_components(toolchain) abort
   if !executable('rustup')
     return []
   endif
@@ -12,11 +12,11 @@ function! s:list_components(toolchain)
   return split(system('rustup component list' . args), '\n')
 endfunction
 
-function! rustup#component#list(...)
-  return map(s:list_components(get(a:, 1, '')), 'substitute(v:val, " (.*)$", "", "g")')
+function! rustup#component#list(...) abort
+  return map(s:list_components(get(a:, 1, '')), 'substitute(v:val, '' (.*)$'', '''', ''g'')')
 endfunction
 
-function! rustup#component#add(component, ...)
+function! rustup#component#add(component, ...) abort
   if !executable('rustup')
     return
   endif
@@ -24,10 +24,10 @@ function! rustup#component#add(component, ...)
   let toolchain = get(a:, 2, '')
   let args = target ==# '' ? '' : (' --target=' . target)
   let args = args . (toolchain ==# '' ? '' : (' --toolchain=' . toolchain))
-  call system('rustup component add ' . component . args)
+  call system('rustup component add ' . a:component . args)
 endfunction
 
-function! rustup#component#remove(component, ...)
+function! rustup#component#remove(component, ...) abort
   if !executable('rustup')
     return
   endif
@@ -35,5 +35,5 @@ function! rustup#component#remove(component, ...)
   let toolchain = get(a:, 2, '')
   let args = target ==# '' ? '' : (' --target=' . target)
   let args = args . (toolchain ==# '' ? '' : (' --toolchain=' . toolchain))
-  call system('rustup component remove ' . component . args)
+  call system('rustup component remove ' . a:component . args)
 endfunction

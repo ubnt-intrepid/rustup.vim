@@ -4,7 +4,7 @@
 " License: MIT
 "==============================================================================
 
-function! s:list_targets(toolchain)
+function! s:list_targets(toolchain) abort
   if !executable('rustup')
     return []
   endif
@@ -12,22 +12,22 @@ function! s:list_targets(toolchain)
   return split(system('rustup target list' . args), '\n')
 endfunction
 
-function! rustup#target#list(...)
-  return map(s:list_targets(get(a:, 1, '')), 'substitute(v:val, " (default)$", "", "g")')
+function! rustup#target#list(...) abort
+  return map(s:list_targets(get(a:, 1, '')), 'substitute(v:val, '' (default)$'', '''', ''g'')')
 endfunction
 
-function! rustup#target#add(target, ...)
+function! rustup#target#add(target, ...) abort
   if !executable('rustup')
     return
   endif
   let args = len(a:000) == 0 ? '' : (' --toolchain=' . get(a:, 1, ''))
-  call system('rustup target add ' . target . args)
+  call system('rustup target add ' . a:target . args)
 endfunction
 
-function! rustup#target#remove(target, ...)
+function! rustup#target#remove(target, ...) abort
   if !executable('rustup')
     return
   endif
   let args = len(a:000) == 0 ? '' : (' --toolchain=' . get(a:, 1, ''))
-  call system('rustup target remove ' . target . args)
+  call system('rustup target remove ' . a:target . args)
 endfunction
