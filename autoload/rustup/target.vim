@@ -4,11 +4,11 @@
 " License: MIT
 "==============================================================================
 
-function! s:list_targets(target)
+function! s:list_targets(toolchain)
   if !executable('rustup')
     return []
   endif
-  let args = a:target ==# '' ? '' : (' --toolchain=' . a:target)
+  let args = a:toolchain ==# '' ? '' : (' --toolchain=' . a:toolchain)
   return split(system('rustup target list' . args), '\n')
 endfunction
 

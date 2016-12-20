@@ -4,11 +4,15 @@
 " License: MIT
 "==============================================================================
 
-function! rustup#toolchain#list()
+function! s:list_toolchains()
   if !executable('rustup')
     return []
   endif
   return split(system('rustup toolchain list'), '\n')
+endfunction
+
+function! rustup#toolchain#list()
+  return map(s:list_toolchains(), 'substitute(v:val, " (default)$", "", "g")')
 endfunction
 
 function! rustup#toolchain#install(name)
