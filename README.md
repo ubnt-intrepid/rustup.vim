@@ -3,13 +3,10 @@ A thin wrapper for calling [`rustup`](https://github.com/rust-lang-nursery/rustu
 
 ## Current status
 
+* `rustup#target#{list,add,remove,default}()`
 * `rustup#toolchain#list()`
 * `rustup#toolchain#default()`
 * `rustup#show()`
-
-Other utility functions:
-
-* `rustup#source_path()`
 
 ## Installation
 
