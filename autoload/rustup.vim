@@ -8,6 +8,10 @@ function! rustup#show() abort
   return rustup#util#run('show')
 endfunction
 
+function! rustup#update(toolchain) abort
+  return rustup#util#run('update', a:toolchain)
+endfunction
+
 function! rustup#default(toolchain) abort
   return rustup#util#run('default', a:toolchain)
 endfunction
@@ -18,6 +22,14 @@ endfunction
 
 function! rustup#which(cmd) abort
   return rustup#util#run('which', a:cmd)
+endfunction
+
+function! rustup#doc(doctype) abort
+  return rustup#util#run('doc', a:doctype)
+endfunction
+
+function! rustup#man(cmd, toolchain) abort
+  execute '!rustup man ' . a:cmd . rustup#util#map_opt(a:toolchain, '''--toolchain='' . v:val')
 endfunction
 
 
