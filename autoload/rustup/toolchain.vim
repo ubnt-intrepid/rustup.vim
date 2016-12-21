@@ -5,9 +5,9 @@
 "==============================================================================
 
 function! rustup#toolchain#list() abort
-  return map(split(rustup#util#run('toolchain', ['list']), '\n'), 'substitute(v:val, '' (default)$'', '''', ''g'')')
+  return map(split(rustup#util#run('toolchain', 'list'), '\n'), 'substitute(v:val, '' (default)$'', '''', ''g'')')
 endfunction
 
 function! rustup#toolchain#install(name) abort
-  return rustup#util#run('toolchain', ['install', a:name])
+  return rustup#util#run('toolchain', 'install', a:name)
 endfunction

@@ -5,19 +5,20 @@
 "==============================================================================
 
 function! rustup#component#list(toolchain) abort
-  let args = a:toolchain ==# '' ? [] : ['--toolchain=' . a:toolchain]
-  let components = rustup#util#run('component', ['list'] + args)
-  return map(split(components, '\n'), 'substitute(v:val, '' (.*)$'', '''', ''g'')')
+  let components = rustup#util#run('component', 'list',
+        \ rustup#util#map_opt(a:toolchain, '''--toolchain='' . v:val'))
+  let components = split(components, '\n')
+  return map(components, 'substitute(v:val, '' (.*)$'', '''', ''g'')')
 endfunction
 
 function! rustup#component#add(component, target, toolchain) abort
-  let args = (a:target ==# '' ? [] : ['--target=' . a:target]) +
-        \ (a:toolchain ==# '' ? [] : ['--toolchain=' . a:toolchain])
-  return rustup#util#run('component', ['add'] + args)
+  return rustup#util#run('component', 'add',
+        \ rustup#util#map_opt(a:target, '''--target='' . v:val'),
+        \ rustup#util#map_opt(a:toolchain, '''--toolchain='' . v:val'))
 endfunction
 
 function! rustup#component#remove(component, target, toolchain) abort
-  let args = (a:target ==# '' ? [] : ['--target=' . a:target]) +
-        \ (a:toolchain ==# '' ? [] : ['--toolchain=' . a:toolchain])
-  return rustup#util#run('component', ['remove'] + args)
+  return rustup#util#run('component', 'remove',
+        \ rustup#util#map_opt(a:target, '''--target='' . v:val'),
+        \ rustup#util#map_opt(a:toolchain, '''--toolchain='' . v:val'))
 endfunction
